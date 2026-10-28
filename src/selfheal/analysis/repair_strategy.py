@@ -172,8 +172,12 @@ def _generate_unused_import_patch(file_path, message, line_number):
 
     import ast
 
+    source = "".join(lines)
+    if source.startswith("\ufeff"):
+        source = source[1:]
+
     try:
-        tree = ast.parse("".join(lines))
+        tree = ast.parse(source)
     except SyntaxError:
         return None
     if any(isinstance(n, ast.Name) and n.id == base for n in ast.walk(tree)):
