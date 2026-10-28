@@ -58,6 +58,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
           commit-message: "fix(ai): automated code remediation & CVE patch"
           title: "🤖 Automated CI Self-Healing Remediation"
           body: |
