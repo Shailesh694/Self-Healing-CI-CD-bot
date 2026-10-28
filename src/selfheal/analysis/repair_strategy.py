@@ -159,7 +159,7 @@ def _generate_unused_import_patch(file_path, message, line_number):
     path, lines = loaded
     reported = match.group(1)
     index = line_number - 1
-    line = lines[index].rstrip("\r\n")
+    line = lines[index].strip()
 
     plain = SIMPLE_IMPORT.match(line)
     from_import = SIMPLE_FROM_IMPORT.match(line)
