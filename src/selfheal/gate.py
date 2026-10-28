@@ -52,12 +52,12 @@ def check_python_rewrite(path: str, original: str, new: str) -> GateResult:
         return GateResult(False, ["empty output"])
 
     try:
-        new_tree = ast.parse(new)
+        new_tree = ast.parse(new.removeprefix("\ufeff"))
     except SyntaxError as exc:
         return GateResult(False, [f"output is not valid Python: {exc.msg}"])
 
     try:
-        removed = _top_level_names(ast.parse(original)) - _top_level_names(new_tree)
+        removed = _top_level_names(ast.parse(original.removeprefix("\ufeff"))) - _top_level_names(new_tree)
     except SyntaxError:
         removed = set()  # original already broken; nothing to preserve
     if removed:
